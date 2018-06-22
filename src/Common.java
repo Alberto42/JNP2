@@ -16,4 +16,7 @@ public class Common {
         InputSource is = new InputSource(new StringReader(xml));
         return builder.parse(is);
     }
+    public static Double kelvinToCelsius(Double kelvin) {
+        return kelvin - 273.15;
+    }
 }
