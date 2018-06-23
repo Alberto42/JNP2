@@ -40,11 +40,6 @@ public class ApixuDriver implements Driver {
             List<Double> maxTemperatures = selectTemperatures(doc, xpath,XPATH_MAX);
             List<Double> minTemperatures = selectTemperatures(doc, xpath,XPATH_MIN);
 
-            assert(minTemperatures.size() == maxTemperatures.size());
-            for(int i=0;i<minTemperatures.size();i++) {
-                assert(minTemperatures.get(i) <= maxTemperatures.get(i));
-            }
-
             return new ForecastData(minTemperatures,maxTemperatures);
         } catch (Exception e) {
             return null;

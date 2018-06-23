@@ -19,4 +19,7 @@ public class Common {
     public static Double kelvinToCelsius(Double kelvin) {
         return kelvin - 273.15;
     }
+    public static Double fahrenheitToCelsius(Double fahrenheit) {
+        return ((fahrenheit - 32)*5)/9;
+    }
 }

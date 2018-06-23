@@ -9,10 +9,8 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,30 +55,56 @@ public class OpenWeatherAPIDriver implements Driver {
                     NamedNodeMap t = node.getChildNodes().item(4).getAttributes();
                     Double minTemperature = Common.kelvinToCelsius(Double.parseDouble(t.getNamedItem("min").getNodeValue()));
                     Double maxTemperature = Common.kelvinToCelsius(Double.parseDouble(t.getNamedItem("max").getNodeValue()));
-                    if (date != lastDate) {
-                        minT.add(minTemperature);
-                        maxT.add(maxTemperature);
-                        lastDate = date;
+
+                    if (!date.equals(lastDate) ) {
+                        lastDate = addNextDay(minT, maxT, date, minTemperature, maxTemperature);
                     } else {
-                        int lastIndex = minT.size() - 1;
-                        Double lastMin = minT.get(lastIndex);
-                        Double lastMax = maxT.get(lastIndex);
-                        minT.set(lastIndex, Math.min(lastMin, minTemperature));
-                        maxT.set(lastIndex, Math.max(lastMax, maxTemperature));
+                        updateLastDay(minT, maxT, minTemperature, maxTemperature);
                     }
                 }
             }
+
+            if (minT.size() < Common.days || maxT.size() < Common.days)
+                throw new IllegalStateException("Retrieving forecast for all days has failed");
+            if (minT.size() > Common.days)
+                minT = minT.subList(0,Common.days);
+            if (maxT.size() > Common.days)
+                maxT = maxT.subList(0,Common.days);
+
+
             return new ForecastData(minT,maxT);
+        } catch (XPathExpressionException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
         } catch (Exception e) {
-            return null;
+            e.printStackTrace();
         }
+        return null;
+    }
+
+    private void updateLastDay(List<Double> minT, List<Double> maxT, Double minTemperature, Double maxTemperature) {
+        int lastIndex = minT.size() - 1;
+        Double lastMin = minT.get(lastIndex);
+        Double lastMax = maxT.get(lastIndex);
+        minT.set(lastIndex, Math.min(lastMin, minTemperature));
+        maxT.set(lastIndex, Math.max(lastMax, maxTemperature));
+    }
+
+    private String addNextDay(List<Double> minT, List<Double> maxT, String date, Double minTemperature, Double maxTemperature) {
+        String lastDate;
+        minT.add(minTemperature);
+        maxT.add(maxTemperature);
+        lastDate = date;
+        return lastDate;
     }
 
     private String getDate(Node node) {
         String dateTime = node.getAttributes().getNamedItem("from").getNodeValue();
         Pattern pattern = Pattern.compile("[0-9]*-[0-9]*-[0-9]*(?=T)");
         Matcher matcher = pattern.matcher(dateTime);
-        assert (matcher.find());
+        boolean res = matcher.find();
+        assert res;
         String date = matcher.group();
         return date;
     }
@@ -89,9 +113,10 @@ public class OpenWeatherAPIDriver implements Driver {
         String date = getDate(node);
         Pattern pattern = Pattern.compile("(?<=-)[0-9]*$");
         Matcher matcher = pattern.matcher(date);
-        assert (matcher.find());
+        boolean res = matcher.find();
+        assert res;
         String day = matcher.group();
         Date today = new Date();
-        return today.getDay() < Integer.parseInt(day);
+        return today.getDate() < Integer.parseInt(day);
     }
 }
