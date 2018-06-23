@@ -1,5 +1,5 @@
 
-package rpc;
+package webservice;
 
 import javax.xml.bind.annotation.XmlRegistry;
 

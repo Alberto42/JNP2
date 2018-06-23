@@ -1,3 +1,6 @@
+package weatherClient;
+
+import common.Common;
 import org.w3c.dom.Document;
 
 import javax.ws.rs.client.Client;

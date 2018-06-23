@@ -1,11 +1,11 @@
-package rpc;
+package webservice;
 
 import javax.jws.WebService;
 
 @WebService(targetNamespace = "http://www.example.org/kalkulator/",
 	serviceName = "kalkulator",
 	portName = "kalkulatorSOAP",
-	endpointInterface = "rpc.Kalkulator",
+	endpointInterface = "webservice.Kalkulator",
 	wsdlLocation = "WEB-INF/wsdl/kalkulator-rpc.wsdl")
 public class KalkulatorImpl implements Kalkulator {
 	public int add(int arg1, int arg2) {

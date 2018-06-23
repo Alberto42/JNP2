@@ -1,3 +1,6 @@
+package weatherClient;
+
+import common.Common;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -46,9 +49,9 @@ public class YahooDriver implements Driver{
             }
 
             if (minTemperatures.size() > Common.days)
-                minTemperatures = minTemperatures.subList(0,Common.days);
+                minTemperatures = minTemperatures.subList(0, Common.days);
             if (maxTemperatures.size() > Common.days)
-                maxTemperatures = maxTemperatures.subList(0,Common.days);
+                maxTemperatures = maxTemperatures.subList(0, Common.days);
 
             return new ForecastData(minTemperatures,maxTemperatures);
         } catch (Exception e) {

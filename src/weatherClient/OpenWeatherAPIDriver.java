@@ -1,3 +1,6 @@
+package weatherClient;
+
+import common.Common;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -67,9 +70,9 @@ public class OpenWeatherAPIDriver implements Driver {
             if (minT.size() < Common.days || maxT.size() < Common.days)
                 throw new IllegalStateException("Retrieving forecast for all days has failed");
             if (minT.size() > Common.days)
-                minT = minT.subList(0,Common.days);
+                minT = minT.subList(0, Common.days);
             if (maxT.size() > Common.days)
-                maxT = maxT.subList(0,Common.days);
+                maxT = maxT.subList(0, Common.days);
 
 
             return new ForecastData(minT,maxT);

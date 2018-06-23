@@ -1,3 +1,7 @@
+package common;//import  javax.xml.rpc.encoding.TypeMappingRegistry
+
+import weatherClient.*;
+
 public class main {
     public static void main(String [] args) {
         Driver apixuDriver = new ApixuDriver();

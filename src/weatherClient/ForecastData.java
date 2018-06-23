@@ -1,3 +1,7 @@
+package weatherClient;
+
+import common.Common;
+
 import java.util.List;
 
 public class ForecastData {
