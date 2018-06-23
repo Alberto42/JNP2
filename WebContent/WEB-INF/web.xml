@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  <display-name>P04-3-Kalkulator</display-name>
+  <servlet>
+    <display-name>KalkulatorBare</display-name>
+    <servlet-name>KalkulatorBare</servlet-name>
+    <servlet-class>kalkulator.bare.KalkulatorImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>KalkulatorBare</servlet-name>
+    <url-pattern>/KalkulatorBare</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <display-name>KalkulatorWrapped</display-name>
+    <servlet-name>KalkulatorWrapped</servlet-name>
+    <servlet-class>kalkulator.wrapped.KalkulatorImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>KalkulatorWrapped</servlet-name>
+    <url-pattern>/KalkulatorWrapped</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <display-name>KalkulatorRpc</display-name>
+    <servlet-name>KalkulatorRpc</servlet-name>
+    <servlet-class>kalkulator.rpc.KalkulatorImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>KalkulatorRpc</servlet-name>
+    <url-pattern>/KalkulatoRpc</url-pattern>
+  </servlet-mapping>
+</web-app>

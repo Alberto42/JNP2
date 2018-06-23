@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+WSDL napisany w stylu document: duża część types (schema), trywialne (ale konieczne w WSDL 1.1) message.
+
+W tej wersji (inaczej niż w "bare") elementy XML wysyłane w zapytaniach mają nazwy takie same jak nazwy operacji.
+W Javie spowoduje to (i kilka innych warunków, które są zachowane) użycie stylu WRAPPED dla parametrów
+- parametry i wyniki metod będą wartościami prostymi (int, String), metody będą mogły przyjmować wiele parametrów,
+a w komunikatach parametry i wyniki będą dodatkowo opakowywane przez runtime.
+ -->
+ 
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.example.org/kalkulator/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="kalkulator"
+	targetNamespace="http://www.example.org/kalkulator/">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.example.org/kalkulator/">
+			<xsd:complexType name="TwoInts">
+				<xsd:annotation>
+					<xsd:documentation>
+						Zapytanie zawierające dwa inty
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="arg1" type="xsd:int" />
+					<xsd:element name="arg2" type="xsd:int" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="IntResult">
+				<xsd:sequence>
+					<xsd:element name="result" type="xsd:int" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="DoubleResult">
+				<xsd:sequence>
+					<xsd:element name="result" type="xsd:double" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="DivResult">
+				<xsd:sequence>
+					<xsd:element name="quotient" type="xsd:int" />
+					<xsd:element name="remainder" type="xsd:int" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="ManyInts">
+				<xsd:sequence>
+					<xsd:element name="arg" type="xsd:int" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="add" type="tns:TwoInts" />
+			<xsd:element name="addResponse" type="tns:IntResult"/>
+
+			<xsd:element name="sub" type="tns:TwoInts" />
+			<xsd:element name="subResponse" type="tns:IntResult"/>
+
+			<xsd:element name="mul" type="tns:TwoInts" />
+			<xsd:element name="mulResponse" type="tns:IntResult"/>
+
+			<xsd:element name="div" type="tns:TwoInts" />
+			<xsd:element name="divResponse" type="tns:DivResult"/>
+
+			<xsd:element name="avg" type="tns:ManyInts" />
+			<xsd:element name="avgResponse" type="tns:DoubleResult"/>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="addRequest">
+		<wsdl:part element="tns:add" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="addResponse">
+		<wsdl:part element="tns:addResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="subRequest">
+		<wsdl:part name="parameters" element="tns:sub"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="subResponse">
+		<wsdl:part name="parameters" element="tns:subResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="mulRequest">
+		<wsdl:part name="parameters" element="tns:mul"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="mulResponse">
+		<wsdl:part name="parameters" element="tns:mulResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="divRequest">
+		<wsdl:part name="parameters" element="tns:div"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="divResponse">
+		<wsdl:part name="parameters" element="tns:divResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="avgRequest">
+		<wsdl:part name="parameters" element="tns:avg"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="avgResponse">
+		<wsdl:part name="parameters" element="tns:avgResponse"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:portType name="kalkulator">
+		<wsdl:operation name="add">
+			<wsdl:input message="tns:addRequest" />
+			<wsdl:output message="tns:addResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="sub">
+			<wsdl:input message="tns:subRequest"></wsdl:input>
+			<wsdl:output message="tns:subResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="mul">
+			<wsdl:input message="tns:mulRequest"></wsdl:input>
+			<wsdl:output message="tns:mulResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="div">
+			<wsdl:input message="tns:divRequest"></wsdl:input>
+			<wsdl:output message="tns:divResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="avg">
+			<wsdl:input message="tns:avgRequest"></wsdl:input>
+			<wsdl:output message="tns:avgResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="kalkulatorSOAP" type="tns:kalkulator">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="add">
+			<soap:operation soapAction="http://www.example.org/kalkulator/add" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="sub">
+			<soap:operation soapAction="http://www.example.org/kalkulator/sub" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="mul">
+			<soap:operation soapAction="http://www.example.org/kalkulator/mul" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="div">
+			<soap:operation soapAction="http://www.example.org/kalkulator/div" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="avg">
+			<soap:operation soapAction="http://www.example.org/kalkulator/avg" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="kalkulator">
+		<wsdl:port binding="tns:kalkulatorSOAP" name="kalkulatorSOAP">
+			<soap:address location="http://www.example.org/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
