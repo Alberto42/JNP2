@@ -10,7 +10,7 @@ import java.io.StringReader;
 public class Common {
     public static String cityName = "Seattle";
     public static String state = "WA";
-    public static Integer days = 5;
+    public static Integer days = 4;
     public static Document loadXMLFromString(String xml) throws Exception
     {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
