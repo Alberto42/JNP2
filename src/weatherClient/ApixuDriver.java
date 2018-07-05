@@ -21,14 +21,15 @@ public class ApixuDriver implements Driver {
     private static final String key = "3a8ff0e630dc4e4596d150132182206";
     private static final String XPATH_MAX = "*//forecastday[%d]/day/maxtemp_c";
     private static final String XPATH_MIN = "*//forecastday[%d]/day/mintemp_c";
+    private static final String PROVIDER_NAME = "Apixu";
 
-    public ForecastData getForecastData() {
+    public ForecastData getForecastData(Integer days) {
         try {
             Client client = ClientBuilder.newClient();
 
             WebTarget target = client.target(link);
             target = target.queryParam("key", key).queryParam("q", Common.cityName)
-                    .queryParam("days", Common.days+1);
+                    .queryParam("days", days+1);
 
             String xml = target.request(MediaType.APPLICATION_XML).get(String.class);
 
@@ -43,7 +44,7 @@ public class ApixuDriver implements Driver {
             List<Double> maxTemperatures = selectTemperatures(doc, xpath,XPATH_MAX);
             List<Double> minTemperatures = selectTemperatures(doc, xpath,XPATH_MIN);
 
-            return new ForecastData(minTemperatures,maxTemperatures);
+            return new ForecastData(minTemperatures,maxTemperatures,days,PROVIDER_NAME);
         } catch (Exception e) {
             return null;
         }

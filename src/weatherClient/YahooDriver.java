@@ -20,7 +20,8 @@ import java.util.List;
 
 public class YahooDriver implements Driver{
     private static final String link = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22Seattle%22)&format=xml&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
-    public ForecastData getForecastData() {
+    private static final String PROVIDER_NAME = "Yahoo";
+    public ForecastData getForecastData(Integer days) {
         try {
             Client client = ClientBuilder.newClient();
             WebTarget target = client.target(link);
@@ -48,12 +49,12 @@ public class YahooDriver implements Driver{
                 maxTemperatures.add(Common.fahrenheitToCelsius(Double.parseDouble(highT)));
             }
 
-            if (minTemperatures.size() > Common.days)
-                minTemperatures = minTemperatures.subList(0, Common.days);
-            if (maxTemperatures.size() > Common.days)
-                maxTemperatures = maxTemperatures.subList(0, Common.days);
+            if (minTemperatures.size() > days)
+                minTemperatures = minTemperatures.subList(0, days);
+            if (maxTemperatures.size() > days)
+                maxTemperatures = maxTemperatures.subList(0, days);
 
-            return new ForecastData(minTemperatures,maxTemperatures);
+            return new ForecastData(minTemperatures,maxTemperatures,days,PROVIDER_NAME);
         } catch (Exception e) {
             e.printStackTrace();
         }

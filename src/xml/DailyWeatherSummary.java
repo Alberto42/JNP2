@@ -11,11 +11,12 @@ public class DailyWeatherSummary {
     private int day;
     @XmlElement
     private Providers providers;
+
+    public DailyWeatherSummary(int day, Providers providers) {
+        this.day = day;
+        this.providers = providers;
+    }
+
     public DailyWeatherSummary() {
-        ArrayList<ProviderSummary> providerSummaries = new ArrayList<ProviderSummary>();
-        providerSummaries.add(new ProviderSummary("name",5,10));
-        providerSummaries.add(new ProviderSummary("name2",5,10));
-        providers = new Providers(providerSummaries);
-        day = 42;
     }
 }

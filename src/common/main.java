@@ -7,9 +7,9 @@ public class main {
         Driver apixuDriver = new ApixuDriver();
         Driver openWeatherAPIDriver = new OpenWeatherAPIDriver();
         Driver yahooDriver = new YahooDriver();
-        ForecastData forecastDataApixu = apixuDriver.getForecastData();
-        ForecastData forecastDataOpenWeather = openWeatherAPIDriver.getForecastData();
-        ForecastData forecastDataYahoo = yahooDriver.getForecastData();
-        int i = 5;
+//        ForecastData forecastDataApixu = apixuDriver.getForecastData();
+//        ForecastData forecastDataOpenWeather = openWeatherAPIDriver.getForecastData();
+//        ForecastData forecastDataYahoo = yahooDriver.getForecastData();
+//        int i = 5;
     }
 }

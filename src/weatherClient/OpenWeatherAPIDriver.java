@@ -24,8 +24,9 @@ public class OpenWeatherAPIDriver implements Driver {
     private static final String link = "http://api.openweathermap.org/data/2.5/forecast?";
     private static final String key = "3f29fac508f757981a00860845a20f85";
     public static final String XPATH = "/weatherdata/forecast/time";
+    private static final String PROVIDER_NAME = "Open weather map";
 
-    public ForecastData getForecastData() {
+    public ForecastData getForecastData(Integer days) {
         try {
             Client client = ClientBuilder.newClient();
 
@@ -67,15 +68,15 @@ public class OpenWeatherAPIDriver implements Driver {
                 }
             }
 
-            if (minT.size() < Common.days || maxT.size() < Common.days)
+            if (minT.size() < days || maxT.size() < days)
                 throw new IllegalStateException("Retrieving forecast for all days has failed");
-            if (minT.size() > Common.days)
-                minT = minT.subList(0, Common.days);
-            if (maxT.size() > Common.days)
-                maxT = maxT.subList(0, Common.days);
+            if (minT.size() > days)
+                minT = minT.subList(0, days);
+            if (maxT.size() > days)
+                maxT = maxT.subList(0, days);
 
 
-            return new ForecastData(minT,maxT);
+            return new ForecastData(minT,maxT,days,PROVIDER_NAME);
         } catch (XPathExpressionException e) {
             e.printStackTrace();
         } catch (ParserConfigurationException e) {

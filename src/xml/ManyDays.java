@@ -10,12 +10,12 @@ import java.util.List;
 
 
 /**
- * <p>Java class for ManyInts complex type.
+ * <p>Java class for ManyDays complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="ManyInts"&gt;
+ * &lt;complexType name="ManyDays"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
@@ -29,10 +29,10 @@ import java.util.List;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ManyInts", propOrder = {
+@XmlType(name = "ManyDays", propOrder = {
     "arg"
 })
-public class ManyInts {
+public class ManyDays {
 
     @XmlElement(type = Integer.class)
     protected List<Integer> arg;

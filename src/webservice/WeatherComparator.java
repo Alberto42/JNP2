@@ -1,7 +1,6 @@
 package webservice;
 
-import xml.DailyWeatherSummary;
-import xml.ManyInts;
+import xml.ManyDays;
 import xml.WeatherSummary;
 
 import javax.jws.WebMethod;
@@ -17,8 +16,8 @@ public interface WeatherComparator {
 
     @WebMethod(action = "http://www.example.org/WeatherComparator/compareForecast")
     public void compareForecast(
-            @WebParam(partName = "args", name = "args")
-                    ManyInts args,
+            @WebParam(partName = "forecastDays", name = "forecastDays")
+                    ManyDays args,
             @WebParam(partName = "result", mode = WebParam.Mode.OUT, name = "result")
                     javax.xml.ws.Holder<WeatherSummary> summary
     );
