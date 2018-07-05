@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.ToDoubleFunction;
+import java.util.stream.DoubleStream;
 
 @WebService(targetNamespace = "http://www.example.org/WeatherComparator/",
 	serviceName = "WeatherComparator",
@@ -40,10 +42,45 @@ public class WeatherComparatorImpl implements WeatherComparator {
                 providerSummaries.add(providerSummary);
             }
             Providers providers = new Providers(providerSummaries);
-            DailyWeatherSummary weather = new DailyWeatherSummary(day,providers);
+            double avgMinTemperature = calcMinAverage(providerSummaries);
+            double avgMaxTemperature = calcMaxAverage(providerSummaries);
+            double minAmplitude = calcMinAmplitude(providerSummaries);
+            double maxAmplitude = calcMaxAmplitude(providerSummaries);
+            DailyWeatherSummary weather = new DailyWeatherSummary(day,providers,avgMinTemperature,
+                    avgMaxTemperature,minAmplitude,maxAmplitude);
             dailyWeatherSummaries.add(weather);
         }
         result.value = new WeatherSummary(dailyWeatherSummaries);
+    }
+
+    private double calcAverage(List<ProviderSummary> providerSummaries,
+                               ToDoubleFunction<ProviderSummary> providerSummaryToDoubleFunction) {
+        return providerSummaries.stream().mapToDouble(providerSummaryToDoubleFunction).average()
+                .orElseThrow(() -> new RuntimeException("No data!"));
+    }
+
+    private double calcMinAverage(List<ProviderSummary> providerSummaries) {
+        return calcAverage(providerSummaries,p -> p.getMinTemperature());
+    }
+    private double calcMaxAverage(List<ProviderSummary> providerSummaries) {
+        return calcAverage(providerSummaries,p -> p.getMaxTemperature());
+    }
+
+    private double calcAmplitude(List<ProviderSummary> providerSummaries,
+                                 ToDoubleFunction<ProviderSummary> providerSummaryToDoubleFunction) {
+        Double max = providerSummaries.stream().mapToDouble(providerSummaryToDoubleFunction).max()
+                .orElseThrow(() -> new RuntimeException("No data!"));
+        Double min = providerSummaries.stream().mapToDouble(providerSummaryToDoubleFunction).min()
+                .orElseThrow(() -> new RuntimeException("No data!"));
+        return max - min;
+    }
+
+    private double calcMinAmplitude(List<ProviderSummary> providerSummaries) {
+        return calcAmplitude(providerSummaries,p -> p.getMinTemperature());
+    }
+
+    private double calcMaxAmplitude(List<ProviderSummary> providerSummaries) {
+        return calcAmplitude(providerSummaries,p -> p.getMaxTemperature());
     }
 
 }

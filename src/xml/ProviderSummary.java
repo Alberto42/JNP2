@@ -14,4 +14,12 @@ public class ProviderSummary {
         this.minTemperature = minTemperature;
         this.maxTemperature = maxTemperature;
     }
+
+    public Double getMinTemperature() {
+        return minTemperature;
+    }
+
+    public Double getMaxTemperature() {
+        return maxTemperature;
+    }
 }
