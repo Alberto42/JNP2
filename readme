@@ -1,0 +1,1 @@
+wsgen -d WebContent/WEB-INF/wsdl/ -wsdl -cp out/artifacts/unnamed/WEB-INF/classes/  webservice.examples.KalkulatorImpl
