@@ -1,5 +1,7 @@
 
-package client;
+package client.xmlGenerated;
+
+import client.client;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

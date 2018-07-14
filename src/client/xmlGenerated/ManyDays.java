@@ -1,24 +1,25 @@
 
-package client;
+package client.xmlGenerated;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for weatherSummary complex type.
+ * <p>Java class for ManyDays complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="weatherSummary">
+ * &lt;complexType name="ManyDays">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="dailyWeather" type="{http://www.example.org/WeatherComparator/}dailyWeatherSummary" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="arg" type="{http://www.w3.org/2001/XMLSchema}int" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -28,40 +29,48 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "weatherSummary", propOrder = {
-    "dailyWeather"
+@XmlType(name = "ManyDays", propOrder = {
+    "arg"
 })
-public class WeatherSummary {
+public class ManyDays {
 
-    protected List<DailyWeatherSummary> dailyWeather;
+    @XmlElement(type = Integer.class)
+    protected List<Integer> arg;
+
+    public ManyDays() {
+        arg = new ArrayList<>();
+    }
 
     /**
-     * Gets the value of the dailyWeather property.
+     * Gets the value of the arg property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the dailyWeather property.
+     * This is why there is not a <CODE>set</CODE> method for the arg property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getDailyWeather().add(newItem);
+     *    getArg().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link DailyWeatherSummary }
+     * {@link Integer }
      * 
      * 
      */
-    public List<DailyWeatherSummary> getDailyWeather() {
-        if (dailyWeather == null) {
-            dailyWeather = new ArrayList<DailyWeatherSummary>();
+    public List<Integer> getArg() {
+        if (arg == null) {
+            arg = new ArrayList<Integer>();
         }
-        return this.dailyWeather;
+        return this.arg;
     }
 
+    public ManyDays(List<Integer> arg) {
+        this.arg = arg;
+    }
 }

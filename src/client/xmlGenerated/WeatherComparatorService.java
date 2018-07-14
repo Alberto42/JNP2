@@ -1,5 +1,5 @@
 
-package client;
+package client.xmlGenerated;
 
 import java.net.MalformedURLException;
 import java.net.URL;

@@ -1,12 +1,12 @@
 package client;
 
+import client.xmlGenerated.*;
+
 import javax.xml.ws.Holder;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class client {
@@ -66,12 +66,12 @@ public class client {
     }
 
     private static void printResult(Holder<WeatherSummary> result) {
-        for(DailyWeatherSummary dailyWeather : result.value.dailyWeather) {
-            System.out.println("Prognoza pogody dla dnia " + dailyWeather.day);
-            System.out.println("Maksymalna(uśredniona) temperatura: " + dailyWeather.avgMaxTemperature);
-            System.out.println("Minimalna(uśredniona) temperatura: " + dailyWeather.avgMinTemperature);
-            System.out.println("Różnica w maksymalnej temperaturze podawanej przez serwisy " + dailyWeather.maxAmplitude);
-            System.out.println("Różnica w minimalnej temperaturze podawanej przez serwisy " + dailyWeather.minAmplitude);
+        for(DailyWeatherSummary dailyWeather : result.value.getDailyWeather()) {
+            System.out.println("Prognoza pogody dla dnia " + dailyWeather.getDay());
+            System.out.println("Maksymalna(uśredniona) temperatura: " + dailyWeather.getAvgMaxTemperature());
+            System.out.println("Minimalna(uśredniona) temperatura: " + dailyWeather.getAvgMinTemperature());
+            System.out.println("Różnica w maksymalnej temperaturze podawanej przez serwisy " + dailyWeather.getMaxAmplitude());
+            System.out.println("Różnica w minimalnej temperaturze podawanej przez serwisy " + dailyWeather.getMinAmplitude());
             System.out.println("");
         }
     }
