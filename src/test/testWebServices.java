@@ -1,8 +1,8 @@
-package common;//import  javax.xml.rpc.encoding.TypeMappingRegistry
+package test;//import  javax.xml.rpc.encoding.TypeMappingRegistry
 
 import weatherClient.*;
 
-public class main {
+public class testWebServices {
     public static void main(String [] args) {
         Driver apixuDriver = new ApixuDriver();
         Driver openWeatherAPIDriver = new OpenWeatherAPIDriver();
