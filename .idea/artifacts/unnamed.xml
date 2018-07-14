@@ -7,7 +7,7 @@
           <element id="module-output" name="weatherComparator2" />
         </element>
       </element>
-      <element id="dir-copy" path="$PROJECT_DIR$/WebContent" />
+      <element id="dir-copy" path="$PROJECT_DIR$/src/main/resources" />
     </root>
   </artifact>
 </component>
