@@ -43,14 +43,18 @@ public class client {
 
                 port.compareForecast(new ManyDays(days),result);
 
-                for(DailyWeatherSummary dailyWeather : result.value.dailyWeather) {
-                    System.out.println("Prognoza pogody dla dnia " + dailyWeather.day);
-                    System.out.println("Maksymalna(uśredniona) temperatura: " + dailyWeather.avgMaxTemperature);
-                    System.out.println("Minimalna(uśredniona) temperatura: " + dailyWeather.avgMinTemperature);
-                    System.out.println("Różnica w maksymalnej temperaturze podawanej przez serwisy " + dailyWeather.maxAmplitude);
-                    System.out.println("Różnica w minimalnej temperaturze podawanej przez serwisy " + dailyWeather.minAmplitude);
-                    System.out.println("");
-                }
+                printResult(result);
+
+            } else if (args[0].equals("-r")) {
+                if (args.length != 2)
+                    exit();
+                Integer periodEnd = Integer.parseInt(args[1]);
+
+                Holder<WeatherSummary> result = new Holder<WeatherSummary>();
+
+                port.compareForecastPeriod(periodEnd,result);
+
+                printResult(result);
 
             } else {
                 exit();
@@ -59,5 +63,16 @@ public class client {
             exit();
         }
 
+    }
+
+    private static void printResult(Holder<WeatherSummary> result) {
+        for(DailyWeatherSummary dailyWeather : result.value.dailyWeather) {
+            System.out.println("Prognoza pogody dla dnia " + dailyWeather.day);
+            System.out.println("Maksymalna(uśredniona) temperatura: " + dailyWeather.avgMaxTemperature);
+            System.out.println("Minimalna(uśredniona) temperatura: " + dailyWeather.avgMinTemperature);
+            System.out.println("Różnica w maksymalnej temperaturze podawanej przez serwisy " + dailyWeather.maxAmplitude);
+            System.out.println("Różnica w minimalnej temperaturze podawanej przez serwisy " + dailyWeather.minAmplitude);
+            System.out.println("");
+        }
     }
 }

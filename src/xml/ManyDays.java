@@ -66,4 +66,11 @@ public class ManyDays {
         return this.arg;
     }
 
+    public ManyDays(List<Integer> arg) {
+        this.arg = arg;
+    }
+
+    public ManyDays() {
+        arg = new ArrayList<>();
+    }
 }

@@ -21,4 +21,11 @@ public interface WeatherComparator {
             @WebParam(partName = "result", mode = WebParam.Mode.OUT, name = "result")
                     javax.xml.ws.Holder<WeatherSummary> summary
     );
+    @WebMethod(action = "http://www.example.org/WeatherComparator/compareForecastPeriod")
+    public void compareForecastPeriod(
+            @WebParam(partName = "forecastPeriod", name = "forecastPeriod")
+                    int day,
+            @WebParam(partName = "result", mode = WebParam.Mode.OUT, name = "result")
+                    javax.xml.ws.Holder<WeatherSummary> summary
+    );
 }

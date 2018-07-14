@@ -37,4 +37,17 @@ public interface WeatherComparator {
             @WebParam(name = "result", mode = WebParam.Mode.OUT, partName = "result")
                     Holder<WeatherSummary> result);
 
+    /**
+     * 
+     * @param result
+     * @param forecastPeriod
+     */
+    @WebMethod(action = "http://www.example.org/WeatherComparator/compareForecastPeriod")
+    @Action(input = "http://www.example.org/WeatherComparator/compareForecastPeriod", output = "http://www.example.org/WeatherComparator/WeatherComparator/compareForecastPeriodResponse")
+    public void compareForecastPeriod(
+            @WebParam(name = "forecastPeriod", partName = "forecastPeriod")
+                    int forecastPeriod,
+            @WebParam(name = "result", mode = WebParam.Mode.OUT, partName = "result")
+                    Holder<WeatherSummary> result);
+
 }

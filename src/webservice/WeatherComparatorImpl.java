@@ -4,6 +4,7 @@ import weatherClient.*;
 import xml.*;
 
 import javax.jws.WebService;
+import javax.xml.ws.Holder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -51,6 +52,16 @@ public class WeatherComparatorImpl implements WeatherComparator {
             dailyWeatherSummaries.add(weather);
         }
         result.value = new WeatherSummary(dailyWeatherSummaries);
+    }
+
+    @Override
+    public void compareForecastPeriod(int day, Holder<WeatherSummary> summary) {
+        List<Integer> list = new ArrayList<>();
+        for(int i=1;i<=day;i++) {
+            list.add(i);
+        }
+        ManyDays days = new ManyDays(list);
+        compareForecast(days,summary);
     }
 
     private double calcAverage(List<ProviderSummary> providerSummaries,
