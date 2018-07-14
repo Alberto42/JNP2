@@ -12,9 +12,9 @@ public class DailyWeatherSummary {
     @XmlElement
     private Providers providers;
 
-    @XmlElement
+    @XmlElement(name="avgMinTemperature")
     private double avgMinTemperature;
-    @XmlElement
+    @XmlElement(name="avgMaxTemperature")
     private double avgMaxTemperature;
     @XmlElement
     private double minAmplitude;

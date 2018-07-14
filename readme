@@ -1,1 +1,3 @@
 wsgen -d WebContent/WEB-INF/wsdl/ -wsdl -cp out/artifacts/unnamed/WEB-INF/classes/  webservice.WeatherComparatorImpl
+
+wsimport -d bin -s src http://localhost:8080/unnamed/WeatherComparator?wsdl

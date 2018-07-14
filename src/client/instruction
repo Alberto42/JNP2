@@ -1,0 +1,18 @@
+Opcje:
+
+client -s day ...
+client -r day
+
+day - liczba calkowita reprezentująca dzień gdzie "1" oznacza jutro, "2" oznacza pojutrze itd.
+
+-s oznacza konkretne dni dla których będzie wykonane porównanie
+
+-r oznacza przedział dni od jutra do podanego dnia
+
+Przykłady:
+
+./client -s 2 3
+Wypisze porównanie webserviców serwująych pogodę dla "pojutra" i "po pojutra"
+
+./client -r 2
+Wypisze porównanie webserviców serwująych pogodę dla "jutra" i "pojutra"
